@@ -4,7 +4,7 @@ pipeline {
 	
 	stages {
 		stage('execute copy from ansible') {
-			
+			ansiblePlaybook credentialsId: 'vagrant-toolbox-key', inventory: 'hosts.ini', playbook: 'playbook.yml'			
 		}
 	}
 }
