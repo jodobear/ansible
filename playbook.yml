@@ -4,4 +4,4 @@
       copy: 
         src: go-artifact
         dest: /home/vagrant/go-artifact
-		force: true
+        force: true
