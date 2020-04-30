@@ -5,7 +5,7 @@
         path: /home/vagrant/deployment
         state: directory
         mode: '0755'
-	
+
     - name: Remove file
       file:
         path: /home/vagrant/go-artifact
