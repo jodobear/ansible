@@ -1,7 +1,18 @@
 - hosts: all
   tasks:
+    - name: Create a directory if it does not exist
+      file:
+        path: /home/vagrant/deployment
+        state: directory
+        mode: '0755'
+	
+	- name: Remove file
+      file:
+	    path: /home/vagrant/go-artifact
+		state: absent
+
     - name: copy artifact
       copy: 
         src: go-artifact
-        dest: /home/vagrant/go-artifact
-        force: yes
+        dest: /home/vagrant/deployment/go-artifact
+        backup: yes
