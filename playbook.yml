@@ -1,5 +1,11 @@
 - hosts: all
   tasks:
+    - name: Create service template
+      become: yes
+      template:
+        src: go-artifact.service.j2
+        dest: /etc/systemd/system/go-artifact.service
+
     - name: Create a directory if it does not exist
       file:
         path: /home/vagrant/deployment
@@ -18,3 +24,10 @@
         force: yes
         dest: /home/vagrant/deployment/go-artifact
         mode: '0777'
+
+    - name: enable and start service
+      became: yes
+      systemd:
+        name: go-artifact
+        enabled: yes
+        state: restarted
