@@ -1,6 +1,6 @@
 hosts: all
 tasks:
-	name: copy artifact
-	copy: 
-		src: go-artifact
-		dest: /home/vagrant/go-artifact
+  name: copy artifact
+  copy: 
+    src: go-artifact
+    dest: /home/vagrant/go-artifact
