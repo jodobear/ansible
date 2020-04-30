@@ -15,4 +15,4 @@
       copy: 
         src: go-artifact
         dest: /home/vagrant/deployment/go-artifact
-        backup: yes
+        backup: true
