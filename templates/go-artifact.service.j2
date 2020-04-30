@@ -6,3 +6,6 @@ After=network.target
 Type=simple
 ExecStart=/home/vagrant/deployment/go-artifact
 PIDFile=/var/run/simple
+
+[Install]
+WantedBy=default.target
