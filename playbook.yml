@@ -8,11 +8,12 @@
 
     - name: Remove file
       file:
-        path: /home/vagrant/go-artifact
+        path: /home/vagrant/deployment/go-artifact
         state: absent
 
     - name: copy artifact
       copy: 
         src: go-artifact
+		backup: yes
         dest: /home/vagrant/deployment/go-artifact
-        backup: true
+
