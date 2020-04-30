@@ -17,4 +17,4 @@
         backup: yes
         force: yes
         dest: /home/vagrant/deployment/go-artifact
-
+        mode: '0777'
