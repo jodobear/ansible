@@ -18,7 +18,7 @@
         state: absent
 
     - name: copy artifact
-      copy: 
+      copy:
         src: go-artifact
         backup: yes
         force: yes

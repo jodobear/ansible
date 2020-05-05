@@ -1,7 +1,7 @@
 def output
 pipeline {
 	agent any
-	
+
 	stages {
 		stage('copy artifact from go-artifact') {
 			steps {
@@ -10,7 +10,7 @@ pipeline {
 		}
 		stage('execute playbook') {
 			steps {
-				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: 'hosts.ini', playbook: 'playbook.yml'			
+				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: 'hosts.ini', playbook: 'playbook.yml'
 			}
 		}
 	}
