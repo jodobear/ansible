@@ -17,5 +17,16 @@ pipeline {
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: "inventories/${params.DEPLOY_TO}/hosts.ini", playbook: 'playbook.yml'
 			}
 		}
+		stage('Integration Tests') {
+			agent {
+				docker {
+					image 'postman/newman'
+					args '--entrypoint='
+				}
+			}
+			steps {
+				sh 'newman run "https://www.getpostman.com/collections/bd2682dde04c6a32e071"'
+			}
+		}
 	}
 }
