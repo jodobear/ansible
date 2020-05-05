@@ -11,8 +11,9 @@ pipeline {
 				copyArtifacts filter: 'go-artifact', fingerprintArtifacts: true, projectName: 'go-artifact', selector: lastSuccessful()
 			}
 		}
-		stage("execute playbook in ${params.DEPLOY_TO}") {
+		stage('Deliver package & execute playbook') {
 			steps {
+        echo "Deploying to env: ${params.DEPLOY_TO}"
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: "inventories/${params.DEPLOY_TO}/hosts.ini", playbook: 'playbook.yml'
 			}
 		}
