@@ -25,7 +25,7 @@ pipeline {
 				}
 			}
 			steps {
-				sh 'newman run "https://www.getpostman.com/collections/bd2682dde04c6a32e071"'
+				sh 'newman run "https://www.getpostman.com/collections/f4b14bdc4e626adba9ad"'
 			}
 		}
 	}
