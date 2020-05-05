@@ -16,15 +16,7 @@ pipeline {
       //   branch 'master'
       // }
 			steps {
-				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: "inventories/prod/hosts.ini", playbook: 'playbook.yml'
-			}
-		}
-    stage('execute playbook in qa') {
-      // when {
-      //   branch 'qa'
-      // }
-			steps {
-				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: "inventories/qa/hosts.ini", playbook: 'playbook.yml'
+				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: "inventories/${params.DEPLOY_TO}/hosts.ini", playbook: 'playbook.yml'
 			}
 		}
 	}
