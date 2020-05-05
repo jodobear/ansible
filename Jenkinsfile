@@ -13,7 +13,7 @@ pipeline {
 		}
 		stage('execute playbook in prod') {
       when {
-        branch 'master'
+        choice 'master'
       }
 			steps {
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: "inventories/prod/hosts.ini", playbook: 'playbook.yml'
@@ -21,7 +21,7 @@ pipeline {
 		}
     stage('execute playbook in qa') {
       when {
-        branch 'qa'
+        choice 'qa'
       }
 			steps {
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: "inventories/qa/hosts.ini", playbook: 'playbook.yml'
