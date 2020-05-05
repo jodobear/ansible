@@ -30,9 +30,11 @@ pipeline {
 			}
 		}
 		stage('Echo Deployment Environment') {
-			script {
-				def branch = mapBranch[params.DEPLOY_TO]
-				echo "Deployed to ${branch}"
+			steps {
+				script {
+					def branch = mapBranch[params.DEPLOY_TO]
+					echo "Deployed to ${branch}"
+				}
 			}
 		}
 	}
