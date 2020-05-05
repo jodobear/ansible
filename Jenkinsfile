@@ -14,7 +14,7 @@ pipeline {
 		}
 		stage('Deliver package & execute playbook') {
 			steps {
-        		script {
+        script {
 					def branch = mapBranch[params.DEPLOY_TO]
 					echo "Deploying to ${branch}"
 				}
