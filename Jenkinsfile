@@ -4,6 +4,7 @@ pipeline {
 
   parameters {
     choice(name: 'DEPLOY_TO', choices: ['master', 'qa'], description: 'Choose deployment environment')
+  }
 	stages {
 		stage('copy artifact from go-artifact') {
 			steps {
