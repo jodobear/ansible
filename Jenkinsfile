@@ -14,7 +14,10 @@ pipeline {
 		}
 		stage('Deliver package & execute playbook') {
 			steps {
-        echo "Deploying to env: ${params.DEPLOY_TO}"
+        		script {
+					def branch = mapBranch[params.DEPLOY_TO]
+					echo "Deploying to ${branch}"
+				}
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: "inventories/${params.DEPLOY_TO}/hosts.ini", playbook: 'playbook.yml'
 			}
 		}
@@ -33,7 +36,7 @@ pipeline {
 			steps {
 				script {
 					def branch = mapBranch[params.DEPLOY_TO]
-					echo "Deployed to ${branch}"
+					echo "Successfully deployed to ${branch}"
 				}
 			}
 		}
