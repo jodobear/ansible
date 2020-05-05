@@ -1,4 +1,5 @@
-def output
+def mapBranch = ["master": "production",
+				"qa": "QA"]
 pipeline {
 	agent any
 
@@ -26,6 +27,12 @@ pipeline {
 			}
 			steps {
 				sh 'newman run "https://www.getpostman.com/collections/f4b14bdc4e626adba9ad"'
+			}
+		}
+		stage('Echo Deployment Environment') {
+			script {
+				def branch = mapBranch[params.DEPLOY_TO]
+				echo "Deployed to ${branch}"
 			}
 		}
 	}
