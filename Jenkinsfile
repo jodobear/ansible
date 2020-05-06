@@ -36,7 +36,8 @@ pipeline {
         }
       }
       steps {
-        bash 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-${mapBranch[params.DEPLOY_TO]}_env.json"'
+        def test_env = "./integration_tests/jenkins-deploy-IT-${mapBranch[params.DEPLOY_TO]}_env.json"
+        sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e test_env'
         echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO]}"
       }
 		}
