@@ -28,7 +28,7 @@ pipeline {
                 playbook: 'playbook.yml'
 			}
 		}
-    stage("Integration Tests in ${mapBranch[params.DEPLOY_TO]}") {
+    stage("Integration Tests") {
       agent {
         docker {
           image 'postman/newman'
