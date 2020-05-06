@@ -1,5 +1,5 @@
 def mapBranch = ["master": "production",
-				          "qa": "QA"]
+				          "qa": "qa"]
 pipeline {
 	agent any
 
