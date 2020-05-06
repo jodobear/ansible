@@ -32,7 +32,8 @@ pipeline {
                 playbook: 'playbook.yml'
 			}
 		}
-    stage("Integration Tests") {
+
+    stage("Integration Tests Production") {
       agent {
         docker {
           image 'postman/newman'
@@ -44,6 +45,22 @@ pipeline {
       }
       steps {
         sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/production.json"'
+        echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO]}"
+      }
+    }
+
+    stage("Integration Tests for QA") {
+      agent {
+        docker {
+          image 'postman/newman'
+          args '--entrypoint='
+        }
+      }
+      when {
+        expression { mapBranch[params.DEPLOY_TO] == "qa" }
+      }
+      steps {
+        sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/qa.json"'
         echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO]}"
       }
 		}
