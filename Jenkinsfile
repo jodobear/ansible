@@ -44,7 +44,7 @@ pipeline {
         expression { mapBranch[params.DEPLOY_TO] == "production" }
       }
       steps {
-        sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/production.json"'
+        sh 'newman run "https://www.getpostman.com/collections/579ba7bb39193a0682f8" -e "./integration_tests/production.json"'
         echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO]}"
       }
     }
@@ -60,7 +60,7 @@ pipeline {
         expression { mapBranch[params.DEPLOY_TO] == "qa" }
       }
       steps {
-        sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/qa.json"'
+        sh 'newman run "https://www.getpostman.com/collections/579ba7bb39193a0682f8" -e "./integration_tests/qa.json"'
         echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO]}"
       }
 		}
