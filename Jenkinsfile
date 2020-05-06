@@ -24,13 +24,15 @@ pipeline {
 		}
 
 		stage('Deliver package & execute playbook') {
-      def defineEnv() {
-        def branch = ${params.DEPLOY_TO}
-        if (branch == "master") {
-          return 'production'
-        }
-        else {
-          return 'qa'
+      script {
+        def defineEnv() {
+          def branch = ${params.DEPLOY_TO}
+          if (branch == "master") {
+            return 'production'
+          }
+          else {
+            return 'qa'
+          }
         }
       }
 			steps {
