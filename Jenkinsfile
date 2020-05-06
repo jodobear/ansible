@@ -12,15 +12,6 @@ pipeline {
   environment {
     ENV = defineEnv()
   }
-  def defineEnv() {
-    def branch = ${params.DEPLOY_TO}
-    if (branch == "master") {
-      return 'production'
-    }
-    else {
-      return 'qa'
-    }
-  }
 
 	stages {
 		stage('copy artifact from go-artifact') {
@@ -31,6 +22,17 @@ pipeline {
         selector: lastSuccessful()
 			}
 		}
+    
+    def defineEnv() {
+      def branch = ${params.DEPLOY_TO}
+      if (branch == "master") {
+        return 'production'
+      }
+      else {
+        return 'qa'
+      }
+    }
+
 		stage('Deliver package & execute playbook') {
 			steps {
         // script {
