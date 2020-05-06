@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "base_url",
-			"value": "10.10.50.4:9090",
+			"value": "10.10.50.4",
 			"enabled": true
 		}
 	],
