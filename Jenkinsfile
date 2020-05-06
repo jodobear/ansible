@@ -36,8 +36,8 @@ pipeline {
         }
       }
       steps {
-        sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-${mapBranch[params.DEPLOY_TO]}_env.json"'
-        echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO]}"
+        sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-$(mapBranch[params.DEPLOY_TO])_env.json"'
+        echo "Successfully deployed to $(mapBranch[params.DEPLOY_TO])"
       }
 		}
 	}
