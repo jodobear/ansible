@@ -23,16 +23,16 @@ pipeline {
       script {
 			steps {
         // script {
-          // mapBranch[params.DEPLOY_TO = mapBranch[params.DEPLOY_TO]
+          // mapBranch[params.DEPLOY_TO] = mapBranch[params.DEPLOY_TO]
         echo "Deploying to ${mapBranch[params.DEPLOY_TO]}"
         // }
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key',
                 disableHostKeyChecking: true,
-                inventory: "inventories/${mapBranch[params.DEPLOY_TO}/hosts.ini",
+                inventory: "inventories/${mapBranch[params.DEPLOY_TO]}/hosts.ini",
                 playbook: 'playbook.yml'
 			}
 		}
-    stage("Integration Tests in ${mapBranch[params.DEPLOY_TO}") {
+    stage("Integration Tests in ${mapBranch[params.DEPLOY_TO]}") {
       agent {
         docker {
           image 'postman/newman'
@@ -40,8 +40,8 @@ pipeline {
         }
       }
       steps {
-        sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-${mapBranch[params.DEPLOY_TO]}_env.json"'
-        echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO}"
+        sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-${mapBranch[params.DEPLOY_TO]]}_env.json"'
+        echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO]}"
       }
 		}
 	}
