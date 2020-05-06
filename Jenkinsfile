@@ -24,7 +24,7 @@ pipeline {
 			steps {
         // script {
           // mapBranch[params.DEPLOY_TO = mapBranch[params.DEPLOY_TO]
-        echo "Deploying to ${mapBranch[params.DEPLOY_TO}"
+        echo "Deploying to ${mapBranch[params.DEPLOY_TO]}"
         // }
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key',
                 disableHostKeyChecking: true,
