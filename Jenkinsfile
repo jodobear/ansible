@@ -10,7 +10,7 @@ pipeline {
   }
 
   environment {
-    ENVIRONMENT_NAME = mapBranch[params.DEPLOY_TO]
+    ENVIRONMENT_NAME = "${mapBranch[params.DEPLOY_TO]}"
   }
 
 	stages {
