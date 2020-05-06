@@ -22,18 +22,17 @@ pipeline {
         selector: lastSuccessful()
 			}
 		}
-    
-    def defineEnv() {
-      def branch = ${params.DEPLOY_TO}
-      if (branch == "master") {
-        return 'production'
-      }
-      else {
-        return 'qa'
-      }
-    }
 
 		stage('Deliver package & execute playbook') {
+      def defineEnv() {
+        def branch = ${params.DEPLOY_TO}
+        if (branch == "master") {
+          return 'production'
+        }
+        else {
+          return 'qa'
+        }
+      }
 			steps {
         // script {
           // env.ENV = mapBranch[params.DEPLOY_TO]
