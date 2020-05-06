@@ -39,10 +39,10 @@ pipeline {
           args '--entrypoint='
         }
       }
+      when {
+        expression { mapBranch[params.DEPLOY_TO] == "production" }
+      }
       steps {
-        when {
-          expression { mapBranch[params.DEPLOY_TO] == "production"}
-        }
         sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/production.json"'
         echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO]}"
       }
