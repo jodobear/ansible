@@ -40,8 +40,8 @@ pipeline {
         }
       }
       steps {
-        echo "${env.ENVIRONMENT_NAME}"
-        sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/$(env.ENVIRONMEN_NAME).json"'
+        echo "${ENVIRONMENT_NAME}"
+        sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/$(ENVIRONMENT_NAME).json"'
         echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO]}"
       }
 		}
