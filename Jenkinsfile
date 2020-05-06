@@ -1,5 +1,5 @@
 def mapBranch = ["master": "production",
-				"qa": "QA"]
+				          "qa": "QA"]
 pipeline {
 	agent any
 
@@ -8,6 +8,20 @@ pipeline {
             choices: ['master', 'qa'],
             description: 'Choose deployment environment')
   }
+
+  environment {
+    ENV = defineEnv()
+  }
+  def defineEnv() {
+    def branch = ${params.DEPLOY_TO}
+    if (branch == "master") {
+      return 'production'
+    }
+    else {
+      return 'qa'
+    }
+  }
+
 	stages {
 		stage('copy artifact from go-artifact') {
 			steps {
@@ -19,34 +33,36 @@ pipeline {
 		}
 		stage('Deliver package & execute playbook') {
 			steps {
-        script {
-          env.ENV = mapBranch[params.DEPLOY_TO]
-          echo "Deploying to ${env.EMV}"
-        }
+        // script {
+          // env.ENV = mapBranch[params.DEPLOY_TO]
+        echo "Deploying to ${env.EMV}"
+        // }
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key',
                 disableHostKeyChecking: true,
-                inventory: "inventories/${params.DEPLOY_TO}/hosts.ini",
+                inventory: "inventories/${env.ENV}/hosts.ini",
                 playbook: 'playbook.yml'
 			}
 		}
-    stage('Integration Tests') {
+    stage("Integration Tests in ${env.ENV}") {
       agent {
         docker {
           image 'postman/newman'
           args '--entrypoint='
         }
       }
-      if (params.DEPLOY_TO == "master") {
-        steps {
-          sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-production_env.json"'
-        echo "Successfully deployed to Production"
-        }
+      when {
+        expression { env.ENV == "production" }
       }
-      if (params.DEPLOY_TO == "qa") {
-        steps {
-          sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-qa_env.json"'
-          echo "Successfully deployed to QA"
-        }
+      steps {
+        sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-production_env.json"'
+        echo "Successfully deployed to ${env.ENV}"
+      }
+      when {
+        expression { env.ENV == "qa" }
+      }
+      steps {
+        sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-qa_env.json"'
+        echo "Successfully deployed to ${env.ENV}"
       }
 		}
 	}
