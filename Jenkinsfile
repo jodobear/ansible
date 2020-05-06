@@ -15,7 +15,7 @@ pipeline {
 		stage('Deliver package & execute playbook') {
 			steps {
         script {
-          def branch = mapBranch[params.DEPLOY_TO]
+          env.BRANCH = mapBranch[params.DEPLOY_TO]
           echo "Deploying to ${branch}"
         }
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key', disableHostKeyChecking: true, inventory: "inventories/${params.DEPLOY_TO}/hosts.ini", playbook: 'playbook.yml'
@@ -28,6 +28,10 @@ pipeline {
 					args '--entrypoint='
 				}
 			}
+      script {
+          def branch = mapBranch[params.DEPLOY_TO]
+          echo "Deploying to ${branch}"
+        }
 			steps {
 				sh 'newman run "https://www.getpostman.com/collections/f4b14bdc4e626adba9ad"'
 			}
@@ -35,8 +39,8 @@ pipeline {
 		stage('Echo Success Message') {
 			steps {
 				script {
-					def branch = mapBranch[params.DEPLOY_TO]
-					echo "Successfully deployed to ${branch}"
+					// def branch = mapBranch[params.DEPLOY_TO]
+					echo "Successfully deployed to ${env.BRANCH}"
 				}
 			}
 		}

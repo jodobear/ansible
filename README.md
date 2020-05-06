@@ -4,4 +4,4 @@
 
 To run test do: `docker run -t postman/newman run "<collection_link>"
 
-- **Check Name:** https://www.getpostman.com/collections/f4b14bdc4e626adba9ad
+- **Check Name:** https://www.getpostman.com/collections/886f5b6ce9804525359d
