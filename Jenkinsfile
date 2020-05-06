@@ -20,12 +20,8 @@ pipeline {
 		}
 
 		stage('Deliver package & execute playbook') {
-      script {
 			steps {
-        // script {
-          // mapBranch[params.DEPLOY_TO] = mapBranch[params.DEPLOY_TO]
         echo "Deploying to ${mapBranch[params.DEPLOY_TO]}"
-        // }
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key',
                 disableHostKeyChecking: true,
                 inventory: "inventories/${mapBranch[params.DEPLOY_TO]}/hosts.ini",
