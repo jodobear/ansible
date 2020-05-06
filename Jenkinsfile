@@ -9,10 +9,6 @@ pipeline {
             description: 'Choose deployment environment')
   }
 
-  environment {
-    ENV = defineEnv()
-  }
-
 	stages {
 		stage('copy artifact from go-artifact') {
 			steps {
@@ -25,47 +21,27 @@ pipeline {
 
 		stage('Deliver package & execute playbook') {
       script {
-        def defineEnv() {
-          def branch = ${params.DEPLOY_TO}
-          if (branch == "master") {
-            return 'production'
-          }
-          else {
-            return 'qa'
-          }
-        }
-      }
 			steps {
         // script {
-          // env.ENV = mapBranch[params.DEPLOY_TO]
-        echo "Deploying to ${env.EMV}"
+          // mapBranch[params.DEPLOY_TO = mapBranch[params.DEPLOY_TO]
+        echo "Deploying to ${mapBranch[params.DEPLOY_TO}"
         // }
 				ansiblePlaybook credentialsId: 'vagrant-toolbox-key',
                 disableHostKeyChecking: true,
-                inventory: "inventories/${env.ENV}/hosts.ini",
+                inventory: "inventories/${mapBranch[params.DEPLOY_TO}/hosts.ini",
                 playbook: 'playbook.yml'
 			}
 		}
-    stage("Integration Tests in ${env.ENV}") {
+    stage("Integration Tests in ${mapBranch[params.DEPLOY_TO}") {
       agent {
         docker {
           image 'postman/newman'
           args '--entrypoint='
         }
       }
-      when {
-        expression { env.ENV == "production" }
-      }
       steps {
-        sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-production_env.json"'
-        echo "Successfully deployed to ${env.ENV}"
-      }
-      when {
-        expression { env.ENV == "qa" }
-      }
-      steps {
-        sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-qa_env.json"'
-        echo "Successfully deployed to ${env.ENV}"
+        sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-${mapBranch[params.DEPLOY_TO]}_env.json"'
+        echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO}"
       }
 		}
 	}
