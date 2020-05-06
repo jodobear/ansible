@@ -36,7 +36,7 @@ pipeline {
         }
       }
       steps {
-        sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d"'
+        sh 'newman run "https://www.getpostman.com/collections/886f5b6ce9804525359d"'
         echo "Successfully deployed to ${mapBranch[params.DEPLOY_TO]}"
       }
 		}
