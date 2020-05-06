@@ -36,14 +36,17 @@ pipeline {
           args '--entrypoint='
         }
       }
-      steps {
-        if (params.DEPLOY_TO = "master") {
+      if (params.DEPLOY_TO == "master") {
+        steps {
           sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-production_env.json"'
+        echo "Successfully deployed to Production"
         }
-        if (params.DEPLOY_TO = "qa") {
+      }
+      if (params.DEPLOY_TO == "qa") {
+        steps {
           sh 'newman run "https://www.gketpostman.com/collections/886f5b6ce9804525359d" -e "./integration_tests/jenkins-deploy-IT-qa_env.json"'
+          echo "Successfully deployed to QA"
         }
-        echo "Successfully deployed to ${env.ENV}"
       }
 		}
 	}
