@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "3e1a6ca4-e371-4cd1-b521-89de127cdeec",
+		"name": "Jenkins Integration tests",
+		"description": "Jenkins IT with environments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Check Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2641f7ba-ff1b-4cb4-9d40-6f5c79f4a2bb",
+						"exec": [
+							"",
+							"pm.test(\"Check name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.Name).to.eql(\"Hello\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n        \"id\": 5,\n        \"username\": \"MIPT\",\n        \"description\": \"Web Dev Remote2222222\"\n    }"
+				},
+				"url": {
+					"raw": "http://{{base_url}}:9090",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "9090",
+					"query": [
+						{
+							"key": "DEPLOY_TO",
+							"value": "master",
+							"disabled": true
+						}
+					]
+				},
+				"description": "test"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
