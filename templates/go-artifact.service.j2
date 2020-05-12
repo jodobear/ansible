@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart="{{home_folder}}/deployment/go-artifact"
+ExecStart={{home_folder}}/deployment/go-artifact
 PIDFile=/var/run/simple
 
 [Install]
