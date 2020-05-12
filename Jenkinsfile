@@ -1,6 +1,6 @@
 def mapBranch = ["master": "production",
 				          "qa": "qa"
-                  'ec2': "aws"]
+                  'aws': "aws"]
 pipeline {
 	agent any
 
