@@ -1,1 +1,1 @@
-home_folder=/home/ec2-user
+export home_folder=/home/ec2-user
