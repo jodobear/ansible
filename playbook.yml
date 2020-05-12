@@ -24,6 +24,8 @@
         force: yes
         dest: "{{home_folder}}/deployment/go-artifact"
         mode: '0777'
+    
+    - debug: var=myvar
 
     - name: enable and start service
       become: yes
