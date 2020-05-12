@@ -67,5 +67,3 @@ pipeline {
 		// }
 	}
 }
-
-https://zoom.us/j/96028403087?pwd=Z21YYkJqc1BHOTFLb255SmFtQTB3dz09
