@@ -1,11 +1,12 @@
 def mapBranch = ["master": "production",
-				          "qa": "qa"]
+				          "qa": "qa"
+                  'ec2': "aws"]
 pipeline {
 	agent any
 
   parameters {
     choice(name: 'DEPLOY_TO',
-            choices: ['master', 'qa'],
+            choices: ['master', 'qa', 'aws'],
             description: 'Choose deployment environment')
   }
 
