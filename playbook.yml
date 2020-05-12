@@ -8,13 +8,13 @@
 
     - name: Create a directory if it does not exist
       file:
-        path: /home/vagrant/deployment
+        path: "{{home_folder}}/deployment"
         state: directory
         mode: '0755'
 
     - name: Remove file
       file:
-        path: /home/vagrant/deployment/go-artifact
+        path: "{{home_folder}}/deployment/go-artifact"
         state: absent
 
     - name: copy artifact
@@ -22,7 +22,7 @@
         src: go-artifact
         backup: yes
         force: yes
-        dest: /home/vagrant/deployment/go-artifact
+        dest: "{{home_folder}}/deployment/go-artifact"
         mode: '0777'
 
     - name: enable and start service
